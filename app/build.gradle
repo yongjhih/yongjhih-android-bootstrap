@@ -54,14 +54,14 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
-    // signingConfigs {
-        // release {
-            // storeFile file(System.getenv('ANDROID_KEYSTORE_PATH'))
-            // storePassword System.getenv('ANDROID_STORE_PASS')
-            // keyAlias System.getenv('ANDROID_KEY_ALIAS')
-            // keyPassword System.getenv('ANDROID_KEY_PASS')
-        // }
-    // }
+    signingConfigs {
+        release {
+            storeFile file(System.getenv('ANDROID_KEYSTORE_PATH'))
+            storePassword System.getenv('ANDROID_KEYSTORE_PASS')
+            keyAlias System.getenv('ANDROID_KEY_ALIAS')
+            keyPassword System.getenv('ANDROID_KEY_PASS')
+        }
+    }
 
     lintOptions {
         abortOnError false
@@ -74,10 +74,11 @@ android {
             // zipAlign false // this is default for debug
         }
         release {
-            // runProguard true
-            // proguardFile '..\proguard.cfg'
-            // signingConfig signingConfigs.release
-            // zipAlign true // this is default for release
+            runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFile '../proguard.cfg'
+            signingConfig signingConfigs.release
+            zipAlign true // this is default for release
             // testPackageName 'io.github.yongjhih.android.bootstrap.tests'
             // testInstrumentationRunner 'android.test.InstrumentationTestRunner' // this is the default
         }
